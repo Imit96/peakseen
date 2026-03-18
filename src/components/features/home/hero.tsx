@@ -6,7 +6,7 @@ import { WordReveal } from '@/components/motion/word-reveal';
 
 export function Hero() {
   return (
-    <section className="bg-charcoal min-h-[95vh] flex flex-col justify-center items-center py-24 lg:py-32 relative overflow-hidden text-center">
+    <section className="h-screen w-full flex flex-col justify-center items-center py-24 lg:py-32 relative overflow-hidden text-center">
       
       {/* Dynamic Background Noise/Glow could go here, but keeping it minimal black */}
       <div className="absolute inset-0 bg-[radial-gradient(circle_at_top,_var(--tw-gradient-stops))] from-grey-900 via-charcoal to-charcoal opacity-50"></div>
