@@ -15,10 +15,10 @@ const directionOffset: Record<
   NonNullable<FadeInOnScrollProps['direction']>,
   { x?: number; y?: number }
 > = {
-  up: { y: 24 },
-  down: { y: -24 },
-  left: { x: -24 },
-  right: { x: 24 },
+  up: { y: 40 },
+  down: { y: -40 },
+  left: { x: -40 },
+  right: { x: 40 },
 };
 
 export function FadeInOnScroll({
@@ -45,7 +45,7 @@ export function FadeInOnScroll({
       viewport={{ once: true, margin: '-80px' }}
       transition={{
         duration: MOTION.duration.normal,
-        ease: MOTION.ease.out,
+        ease: MOTION.ease.spring,
         delay,
       }}
     >
