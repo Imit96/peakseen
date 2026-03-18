@@ -7,6 +7,11 @@ import { createOrUpdateContact } from '@/lib/brevo';
 import { onboardingLimiter } from '@/lib/rate-limit';
 import { z } from 'zod';
 
+const isSupabaseConfigured = () => {
+  const url = process.env.NEXT_PUBLIC_SUPABASE_URL ?? '';
+  return url.length > 0 && !url.includes('your-project') && !url.includes('your_project');
+};
+
 const onboardingSchema = z.object({
   name: z.string().min(2).max(100),
   email: z.string().email(),
@@ -59,33 +64,42 @@ export async function submitOnboarding(formData: FormData) {
   const { name, email, phone, businessName, services: svcs, projectDescription, budget, timeline, consentMarketing } = result.data;
 
   try {
-    const supabase = createServerClient();
+    // Save to Supabase only if properly configured
+    if (isSupabaseConfigured()) {
+      try {
+        const supabase = createServerClient();
 
-    // Save to onboarding_submissions
-    const { error: dbError } = await supabase.from('onboarding_submissions').insert({
-      name,
-      email,
-      phone: phone || null,
-      business_name: businessName || null,
-      services_needed: svcs,
-      project_description: projectDescription,
-      budget_range: budget,
-      timeline,
-      consent_marketing: consentMarketing,
-    });
+        // Save to onboarding_submissions
+        const { error: dbError } = await supabase.from('onboarding_submissions').insert({
+          name,
+          email,
+          phone: phone || null,
+          business_name: businessName || null,
+          services_needed: svcs,
+          project_description: projectDescription,
+          budget_range: budget,
+          timeline,
+          consent_marketing: consentMarketing,
+        });
 
-    if (dbError) {
-      console.error('[Onboarding] Supabase error:', dbError.message);
+        if (dbError) {
+          console.error('[Onboarding] Supabase error:', dbError.message);
+        }
+
+        // Save as lead
+        await supabase.from('leads').insert({
+          email,
+          name,
+          source: 'contact',
+          business_name: businessName || null,
+          tags: ['onboarding', ...svcs],
+        });
+      } catch (dbErr) {
+        console.error('[Onboarding] DB error (skipped):', dbErr instanceof Error ? dbErr.message : 'Unknown');
+      }
+    } else {
+      console.log('[Onboarding] Supabase not configured — skipping DB save.');
     }
-
-    // Save as lead
-    await supabase.from('leads').insert({
-      email,
-      name,
-      source: 'contact',
-      business_name: businessName || null,
-      tags: ['onboarding', ...svcs],
-    });
 
     // Send internal notification email to PeakSeen
     try {

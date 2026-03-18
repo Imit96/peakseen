@@ -5,7 +5,13 @@ function createRateLimiter(prefix: string, limit: number, window: string) {
   const redisUrl = process.env.UPSTASH_REDIS_REST_URL;
   const redisToken = process.env.UPSTASH_REDIS_REST_TOKEN;
 
-  if (!redisUrl || !redisToken) {
+  if (
+    !redisUrl ||
+    !redisToken ||
+    redisUrl.includes('your-redis') ||
+    redisUrl.includes('your_redis') ||
+    redisUrl.includes('your-project')
+  ) {
     // Development fallback — always allows requests
     return {
       limit: async (_identifier: string) => ({
