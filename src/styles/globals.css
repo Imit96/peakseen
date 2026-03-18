@@ -1,0 +1,115 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  /* ─── Primary Palette ─── */
+  --color-charcoal: #1A1A1A;
+  --color-ivory: #F9F8F6;
+  --color-warm-grey: #EBEBEB;
+  --color-burnt-orange: #D95C3C;
+
+  /* ─── Extended Neutrals ─── */
+  --color-grey-900: #1A1A1A;
+  --color-grey-800: #2C2C2C;
+  --color-grey-700: #3D3D3D;
+  --color-grey-600: #4A4A4A;
+  --color-grey-500: #6B6B6B;
+  --color-grey-400: #8C8C8C;
+  --color-grey-300: #ABABAB;
+  --color-grey-200: #D4D4D4;
+  --color-grey-100: #EBEBEB;
+  --color-grey-50: #F4F4F2;
+
+  /* ─── Feedback Colors ─── */
+  --color-success: #1B7A4A;
+  --color-success-light: #E8F5EE;
+  --color-warning: #C4841D;
+  --color-warning-light: #FFF5E0;
+  --color-error: #C93B3B;
+  --color-error-light: #FDECEC;
+  --color-info: #2B5BEE;
+  --color-info-light: #EBF0FF;
+
+  /* ─── Semantic: Backgrounds ─── */
+  --bg-primary: var(--color-charcoal);
+  --bg-surface: var(--color-ivory);
+  --bg-surface-raised: var(--color-grey-50);
+  --bg-surface-dark: var(--color-grey-800);
+  --bg-overlay: rgba(26, 26, 26, 0.6);
+
+  /* ─── Semantic: Text ─── */
+  --text-primary: var(--color-ivory);
+  --text-primary-inverse: var(--color-charcoal);
+  --text-body: var(--color-grey-600);
+  --text-body-dark: var(--color-grey-300);
+  --text-muted: var(--color-grey-400);
+  --text-link: var(--color-burnt-orange);
+
+  /* ─── Semantic: Accent ─── */
+  --accent: var(--color-burnt-orange);
+  --accent-hover: #C14E31;
+  --accent-subtle: rgba(217, 92, 60, 0.10);
+
+  /* ─── Semantic: Borders ─── */
+  --border: var(--color-grey-100);
+  --border-dark: var(--color-grey-700);
+  --border-focus: var(--color-burnt-orange);
+
+  /* ─── Shadows ─── */
+  --shadow-sm: 0 1px 3px rgba(26, 26, 26, 0.08);
+  --shadow-md: 0 4px 16px rgba(26, 26, 26, 0.12);
+  --shadow-lg: 0 8px 32px rgba(26, 26, 26, 0.16);
+  --shadow-accent: 0 4px 24px rgba(217, 92, 60, 0.25);
+
+  /* ─── Border Radius ─── */
+  --radius-sm: 4px;
+  --radius-md: 8px;
+  --radius-lg: 16px;
+  --radius-xl: 24px;
+  --radius-full: 9999px;
+
+  /* ─── Animation ─── */
+  --duration-fast: 150ms;
+  --duration-normal: 300ms;
+  --duration-slow: 500ms;
+  --duration-stagger: 100ms;
+  --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-in-out: cubic-bezier(0.65, 0, 0.35, 1);
+  --ease-spring: cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+@layer base {
+  body {
+    background-color: var(--color-ivory);
+    color: var(--color-grey-600);
+    font-family: var(--font-body), Georgia, 'Times New Roman', serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    font-family: var(--font-display), -apple-system, 'Helvetica Neue', sans-serif;
+    color: var(--color-charcoal);
+  }
+
+  ::selection {
+    background-color: var(--accent-subtle);
+    color: var(--color-charcoal);
+  }
+
+  :focus-visible {
+    outline: 2px solid var(--border-focus);
+    outline-offset: 2px;
+  }
+}
+
+/* Skeleton shimmer animation — the only CSS keyframe allowed */
+@keyframes shimmer {
+  0% {
+    background-position: -200% 0;
+  }
+  100% {
+    background-position: 200% 0;
+  }
+}
