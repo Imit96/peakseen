@@ -57,16 +57,17 @@ export async function submitBrandReport(formData: FormData) {
     // Save report request details
     const { error: reportError } = await supabase.from('brand_report_requests').insert({
       email: result.data.email,
-      name: result.data.name,
+      full_name: result.data.name,
       business_name: result.data.businessName,
       industry: result.data.industry,
       business_stage: result.data.businessStage,
       target_audience: result.data.targetAudience || null,
       biggest_challenge: result.data.biggestChallenge || null,
-      has_logo: result.data.hasLogo || null,
-      has_website: result.data.hasWebsite || null,
+      has_logo: result.data.hasLogo?.replace('-', '_') || null,
+      has_website: result.data.hasWebsite?.replace('-', '_') || null,
       website_url: result.data.websiteUrl || null,
       success_vision: result.data.successVision || null,
+      consent_marketing: result.data.consent,
     });
 
     if (reportError) {

@@ -61,11 +61,14 @@ CREATE TABLE IF NOT EXISTS brand_quiz_results (
   id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
   email TEXT,
   name TEXT,
+  business_name TEXT,
   score INTEGER NOT NULL CHECK (score >= 0 AND score <= 100),
+  score_band TEXT,
   dimension_scores JSONB,
   answers JSONB NOT NULL DEFAULT '{}',
   report_url TEXT,
   consent_marketing BOOLEAN DEFAULT FALSE,
+  tags TEXT[] DEFAULT '{}',
   created_at TIMESTAMPTZ DEFAULT NOW()
 );
 
