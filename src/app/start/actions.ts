@@ -16,6 +16,7 @@ const onboardingSchema = z.object({
   projectDescription: z.string().min(10).max(3000),
   budget: z.string().min(1),
   timeline: z.string().min(1),
+  consentMarketing: z.boolean().default(false),
 });
 
 export async function submitOnboarding(formData: FormData) {
@@ -46,6 +47,7 @@ export async function submitOnboarding(formData: FormData) {
     projectDescription: formData.get('projectDescription'),
     budget: formData.get('budget'),
     timeline: formData.get('timeline'),
+    consentMarketing: formData.get('consentMarketing') === 'true',
   };
 
   const result = onboardingSchema.safeParse(raw);
@@ -54,7 +56,7 @@ export async function submitOnboarding(formData: FormData) {
     return { success: false as const, error: 'Please check your form entries and try again.' };
   }
 
-  const { name, email, phone, businessName, services: svcs, projectDescription, budget, timeline } = result.data;
+  const { name, email, phone, businessName, services: svcs, projectDescription, budget, timeline, consentMarketing } = result.data;
 
   try {
     const supabase = createServerClient();
@@ -69,6 +71,7 @@ export async function submitOnboarding(formData: FormData) {
       project_description: projectDescription,
       budget_range: budget,
       timeline,
+      consent_marketing: consentMarketing,
     });
 
     if (dbError) {

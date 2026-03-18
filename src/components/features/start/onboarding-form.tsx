@@ -57,6 +57,7 @@ interface FormData {
   email: string;
   phone: string;
   businessName: string;
+  consentMarketing: boolean;
 }
 
 /* ------------------------------------------------------------------ */
@@ -90,6 +91,7 @@ export function OnboardingForm() {
     email: '',
     phone: '',
     businessName: '',
+    consentMarketing: false,
   });
 
   function update<K extends keyof FormData>(key: K, value: FormData[K]) {
@@ -159,6 +161,7 @@ export function OnboardingForm() {
     data.set('email', form.email);
     data.set('phone', form.phone);
     data.set('businessName', form.businessName);
+    data.set('consentMarketing', form.consentMarketing.toString());
 
     try {
       const result = await submitOnboarding(data);
@@ -382,6 +385,22 @@ export function OnboardingForm() {
                     onChange={(e) => update('phone', e.target.value)}
                   />
                 </div>
+              </div>
+              
+              <div className="flex items-start gap-3 mt-4">
+                <div className="flex h-5 items-center">
+                  <input
+                    type="checkbox"
+                    id="onboarding-consent"
+                    name="consentMarketing"
+                    checked={form.consentMarketing}
+                    onChange={(e) => update('consentMarketing', e.target.checked)}
+                    className="h-4 w-4 rounded border-grey-300 text-accent focus:ring-accent"
+                  />
+                </div>
+                <label htmlFor="onboarding-consent" className="text-sm text-grey-500">
+                  I agree to receive the PeakSeen newsletter and marketing emails.
+                </label>
               </div>
             </div>
           )}
