@@ -33,3 +33,6 @@ export const nameGeneratorLimiter = createRateLimiter('name-generator', 3, '24 h
 export const contactFormLimiter = createRateLimiter('contact-form', 5, '1 h');
 export const reportFormLimiter = createRateLimiter('report-form', 3, '1 h');
 export const quizSubmitLimiter = createRateLimiter('quiz-submit', 10, '1 h');
+export const onboardingLimiter = createRateLimiter('onboarding', 5, '1 h');
+export const websiteAuditLimiter = createRateLimiter('website-audit', 5, '1 h');
+

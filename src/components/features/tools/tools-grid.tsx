@@ -58,7 +58,8 @@ const tools: ToolCardData[] = [
     title: 'Website Audit Checker',
     description: 'Check your website performance',
     icon: Globe,
-    comingSoon: true,
+    href: '/tools/website-audit',
+    cta: 'Run audit',
   },
   {
     title: 'Brand Archetype Quiz',

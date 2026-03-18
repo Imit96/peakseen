@@ -1,6 +1,8 @@
 import { NextRequest, NextResponse } from 'next/server';
 import crypto from 'crypto';
 import { createServerClient } from '@/lib/supabase-server';
+import { resend } from '@/lib/email';
+import { PurchaseConfirmation } from '@/emails/purchase-confirmation';
 
 export async function POST(req: NextRequest) {
   try {
@@ -74,6 +76,24 @@ export async function POST(req: NextRequest) {
 
           if (error) {
             console.error('[Lemon Squeezy Webhook] Failed to save order:', error.message);
+          } else {
+            // Send purchase confirmation email
+            try {
+              await resend.emails.send({
+                from: 'PeakSeen <hello@peakseen.com>',
+                to: attrs.user_email,
+                subject: `Your purchase receipt — ${attrs.first_order_item?.product_name || 'PeakSeen'}`,
+                react: PurchaseConfirmation({
+                  name: attrs.user_name || null,
+                  productName: attrs.first_order_item?.product_name || 'Your order',
+                  total: attrs.total ? attrs.total / 100 : 0,
+                  currency: attrs.currency || 'USD',
+                  receiptUrl: attrs.urls?.receipt || null,
+                }),
+              });
+            } catch (emailErr) {
+              console.error('[Lemon Squeezy Webhook] Email error:', emailErr instanceof Error ? emailErr.message : 'Unknown');
+            }
           }
         }
         break;
