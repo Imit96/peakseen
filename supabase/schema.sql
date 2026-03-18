@@ -142,6 +142,7 @@ CREATE TABLE IF NOT EXISTS onboarding_submissions (
   project_description TEXT,
   budget_range TEXT,
   timeline TEXT,
+  consent_marketing BOOLEAN DEFAULT FALSE,
   created_at TIMESTAMPTZ DEFAULT NOW()
 );
 

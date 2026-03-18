@@ -66,36 +66,37 @@ export async function submitOnboarding(formData: FormData) {
   try {
     // Save to Supabase only if properly configured
     if (isSupabaseConfigured()) {
-      try {
-        const supabase = createServerClient();
+      const supabase = createServerClient();
 
-        // Save to onboarding_submissions
-        const { error: dbError } = await supabase.from('onboarding_submissions').insert({
-          name,
-          email,
-          phone: phone || null,
-          business_name: businessName || null,
-          services_needed: svcs,
-          project_description: projectDescription,
-          budget_range: budget,
-          timeline,
-          consent_marketing: consentMarketing,
-        });
+      // Save to onboarding_submissions
+      const { error: dbError } = await supabase.from('onboarding_submissions').insert({
+        name,
+        email,
+        phone: phone || null,
+        business_name: businessName || null,
+        services_needed: svcs,
+        project_description: projectDescription,
+        budget_range: budget,
+        timeline,
+        consent_marketing: consentMarketing,
+      });
 
-        if (dbError) {
-          console.error('[Onboarding] Supabase error:', dbError.message);
-        }
+      if (dbError) {
+        console.error('[Onboarding] Supabase insert error:', dbError.message, dbError.details);
+        return { success: false as const, error: `Database error: ${dbError.message}` };
+      }
 
-        // Save as lead
-        await supabase.from('leads').insert({
-          email,
-          name,
-          source: 'contact',
-          business_name: businessName || null,
-          tags: ['onboarding', ...svcs],
-        });
-      } catch (dbErr) {
-        console.error('[Onboarding] DB error (skipped):', dbErr instanceof Error ? dbErr.message : 'Unknown');
+      // Save as lead (non-blocking)
+      const { error: leadError } = await supabase.from('leads').insert({
+        email,
+        name,
+        source: 'contact',
+        business_name: businessName || null,
+        tags: ['onboarding', ...svcs],
+      });
+
+      if (leadError) {
+        console.error('[Onboarding] Lead insert error:', leadError.message);
       }
     } else {
       console.log('[Onboarding] Supabase not configured — skipping DB save.');
