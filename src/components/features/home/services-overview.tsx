@@ -56,25 +56,33 @@ export function ServicesOverview() {
         </p>
       </FadeInOnScroll>
 
-      <StaggerChildren className="grid grid-cols-1 md:grid-cols-2 gap-6 lg:gap-8 mt-12">
-        {SERVICES.map((service) => (
-          <Card key={service.title} variant="compact">
-            <h3 className="font-display text-xl font-bold text-charcoal">
-              {service.title}
-            </h3>
-            <ul className="mt-4 space-y-2">
-              {service.items.map((item) => (
-                <li key={item} className="text-sm text-grey-500">
-                  {item}
-                </li>
-              ))}
-            </ul>
-            <Link
-              href={service.href}
-              className="inline-block mt-4 text-sm font-display font-bold text-accent hover:underline"
-            >
-              Learn more &rarr;
-            </Link>
+      <StaggerChildren className="grid grid-cols-1 md:grid-cols-2 gap-6 lg:gap-8 mt-16">
+        {SERVICES.map((service, index) => (
+          <Card key={service.title} variant="default" className="p-8 lg:p-12 border-0 bg-white ring-1 ring-grey-100 group">
+            <div className="flex flex-col h-full justify-between gap-12">
+              <div>
+                <span className="font-display font-black text-6xl text-grey-100 block mb-6 transition-colors duration-300 group-hover:text-accent/20">
+                  0{index + 1}
+                </span>
+                <h3 className="font-display text-2xl lg:text-3xl font-black text-charcoal tracking-tight">
+                  {service.title}
+                </h3>
+                <ul className="mt-6 space-y-3">
+                  {service.items.map((item) => (
+                    <li key={item} className="text-base text-grey-500 flex items-center gap-3">
+                      <div className="w-1.5 h-1.5 rounded-full bg-accent opacity-50" />
+                      {item}
+                    </li>
+                  ))}
+                </ul>
+              </div>
+              <Link
+                href={service.href}
+                className="inline-flex items-center text-sm font-display font-bold text-accent group-hover:underline"
+              >
+                Explore this service <span className="ml-1 transition-transform group-hover:translate-x-1">&rarr;</span>
+              </Link>
+            </div>
           </Card>
         ))}
       </StaggerChildren>

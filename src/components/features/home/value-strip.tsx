@@ -31,17 +31,17 @@ const VALUES = [
 
 export function ValueStrip() {
   return (
-    <Section dark id="value-strip">
+    <Section id="value-strip" className="border-b border-grey-100 py-20">
       <StaggerChildren className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
         {VALUES.map((item) => {
           const Icon = item.icon;
           return (
-            <div key={item.label} className="flex flex-col gap-3">
-              <Icon className="h-6 w-6 text-accent" aria-hidden="true" />
-              <h3 className="font-display text-lg font-bold text-ivory">
+            <div key={item.label} className="flex flex-col gap-4 border-l-2 border-grey-100 pl-6 lg:pl-8">
+              <Icon className="h-8 w-8 text-charcoal stroke-[1.5]" aria-hidden="true" />
+              <h3 className="font-display text-xl lg:text-2xl font-black text-charcoal tracking-tight">
                 {item.label}
               </h3>
-              <p className="text-sm text-grey-300">{item.description}</p>
+              <p className="text-base text-grey-500 leading-relaxed">{item.description}</p>
             </div>
           );
         })}
