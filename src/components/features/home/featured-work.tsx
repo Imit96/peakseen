@@ -1,4 +1,5 @@
 import Link from 'next/link';
+import Image from 'next/image';
 import { Section } from '@/components/layout/section';
 import { Card } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
@@ -11,18 +12,21 @@ const PROJECTS = [
     title: 'Fintech Brand Identity',
     description:
       'A complete brand system for an early-stage fintech startup — from naming to investor deck.',
+    image: '/images/work/fintech-brand-identity.png',
   },
   {
     slug: 'ecommerce-redesign',
     title: 'E-Commerce Redesign',
     description:
       'A conversion-focused redesign that increased checkout completions by 35%.',
+    image: '/images/work/ecommerce-brand-identity.png',
   },
   {
     slug: 'saas-mvp-launch',
     title: 'SaaS MVP Launch',
     description:
       'From idea to live product in 8 weeks — strategy, design, and full-stack development.',
+    image: '/images/work/saas-product-brand.png',
   },
 ] as const;
 
@@ -41,7 +45,14 @@ export function FeaturedWork() {
       <StaggerChildren className="grid grid-cols-1 md:grid-cols-3 gap-6 lg:gap-8 mt-12">
         {PROJECTS.map((project) => (
           <Card key={project.slug}>
-            <div className="bg-grey-200 aspect-[3/2] rounded-t-lg" />
+            <div className="relative aspect-[3/2] w-full rounded-t-lg overflow-hidden bg-charcoal">
+              <Image 
+                src={project.image} 
+                alt={project.title} 
+                fill 
+                className="object-cover transition-transform duration-500 hover:scale-105" 
+              />
+            </div>
             <div className="p-6">
               <Badge>Concept Work</Badge>
               <h3 className="font-display text-xl font-bold text-charcoal mt-3">

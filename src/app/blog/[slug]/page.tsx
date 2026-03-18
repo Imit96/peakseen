@@ -2,6 +2,7 @@ export const revalidate = 3600;
 
 import type { Metadata } from 'next';
 import Link from 'next/link';
+import Image from 'next/image';
 import { notFound } from 'next/navigation';
 import { Section } from '@/components/layout/section';
 import { Badge } from '@/components/ui/badge';
@@ -20,6 +21,7 @@ interface BlogPostData {
   readTime: string;
   author?: string;
   date?: string;
+  image: string;
 }
 
 const FALLBACK_POSTS: BlogPostData[] = [
@@ -30,6 +32,7 @@ const FALLBACK_POSTS: BlogPostData[] = [
       'Learn the foundational steps every startup needs to define a clear, compelling brand identity from day one.',
     category: 'Branding',
     readTime: '5 min read',
+    image: '/images/blog/brand-identity-startup.png',
   },
   {
     slug: 'what-is-a-brand-design-system-and-why-you-need-one',
@@ -38,6 +41,7 @@ const FALLBACK_POSTS: BlogPostData[] = [
       'Discover how a design system keeps your brand consistent across every touchpoint and saves your team time.',
     category: 'Design',
     readTime: '7 min read',
+    image: '/images/blog/what-is-a-brand-design-system-and-why-you-need-one.png',
   },
   {
     slug: '10-logo-design-mistakes-nigerian-startups-make',
@@ -46,6 +50,7 @@ const FALLBACK_POSTS: BlogPostData[] = [
       'Avoid the most common logo design pitfalls that hold Nigerian startups back from building strong brand recognition.',
     category: 'Branding',
     readTime: '6 min read',
+    image: '/images/blog/10-logo-design-mistakes-nigerian-startups-make.png',
   },
   {
     slug: 'how-to-write-a-brand-voice-guide',
@@ -54,6 +59,7 @@ const FALLBACK_POSTS: BlogPostData[] = [
       'A step-by-step guide to creating a brand voice guide that keeps your communication consistent and on-brand.',
     category: 'Strategy',
     readTime: '8 min read',
+    image: '/images/blog/how-to-write-a-brand-voice-guide.png',
   },
   {
     slug: 'website-vs-landing-page-what-does-your-business-actually-need',
@@ -62,6 +68,7 @@ const FALLBACK_POSTS: BlogPostData[] = [
       'Understand the difference between a website and a landing page, and which one your business actually needs right now.',
     category: 'Strategy',
     readTime: '5 min read',
+    image: '/images/blog/website-vs-landing-page-what-does-your-business-actually-need.png',
   },
   {
     slug: 'how-to-create-a-social-media-aesthetic-for-your-business',
@@ -70,6 +77,7 @@ const FALLBACK_POSTS: BlogPostData[] = [
       'Build a cohesive social media presence that strengthens your brand and attracts the right audience.',
     category: 'Design',
     readTime: '6 min read',
+    image: '/images/blog/how-to-create-a-social-media-aesthetic-for-your-business.png',
   },
 ];
 
@@ -85,6 +93,7 @@ function getAllPosts(): BlogPostData[] {
     readTime: p.readTime,
     author: p.author,
     date: p.date,
+    image: p.coverImage || `/images/blog/${p.slug}.png`,
   }));
 
   for (const fallback of FALLBACK_POSTS) {
@@ -278,7 +287,14 @@ export default async function BlogPostPage({ params }: PageProps) {
                 className="group block h-full"
               >
                 <Card className="h-full flex flex-col">
-                  <div className="aspect-video bg-grey-100 w-full" />
+                  <div className="relative aspect-video w-full rounded-t-lg overflow-hidden bg-charcoal">
+                    <Image 
+                      src={related.image} 
+                      alt={related.title} 
+                      fill 
+                      className="object-cover transition-transform duration-500 hover:scale-105" 
+                    />
+                  </div>
                   <div className="p-6 flex flex-col flex-1">
                     <Badge className="self-start mb-3">
                       {related.category}

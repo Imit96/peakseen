@@ -2,6 +2,7 @@ export const revalidate = 3600;
 
 import type { Metadata } from 'next';
 import Link from 'next/link';
+import Image from 'next/image';
 import { notFound } from 'next/navigation';
 import { cn } from '@/lib/utils';
 import { buttonVariants } from '@/components/ui/button-variants';
@@ -23,6 +24,7 @@ interface CaseStudy {
   work: string;
   outcome: string;
   services: string[];
+  image: string;
 }
 
 const CASE_STUDIES: Record<string, CaseStudy> = {
@@ -48,6 +50,7 @@ const CASE_STUDIES: Record<string, CaseStudy> = {
       'Brand Voice & Messaging Guide',
       'Brand Guidelines Document',
     ],
+    image: '/images/work/fintech-brand-identity.png',
   },
   'ecommerce-brand-identity': {
     slug: 'ecommerce-brand-identity',
@@ -70,6 +73,7 @@ const CASE_STUDIES: Record<string, CaseStudy> = {
       'Website Design & Development',
       'Content Strategy & Planning',
     ],
+    image: '/images/work/ecommerce-brand-identity.png',
   },
   'saas-product-brand': {
     slug: 'saas-product-brand',
@@ -92,6 +96,7 @@ const CASE_STUDIES: Record<string, CaseStudy> = {
       'Brand Voice & Messaging Guide',
       'Brand Guidelines Document',
     ],
+    image: '/images/work/saas-product-brand.png',
   },
 };
 
@@ -170,7 +175,14 @@ export default async function CaseStudyPage({ params }: PageProps) {
 
         <Section>
           <FadeInOnScroll>
-            <div className="aspect-video bg-grey-100 rounded-xl" />
+            <div className="relative aspect-video w-full rounded-xl overflow-hidden bg-charcoal">
+              <Image 
+                src={mdx.frontmatter.coverImage || `/images/work/${slug}.png`} 
+                alt={mdx.frontmatter.title} 
+                fill 
+                className="object-cover" 
+              />
+            </div>
           </FadeInOnScroll>
         </Section>
 
@@ -249,7 +261,14 @@ export default async function CaseStudyPage({ params }: PageProps) {
       {/* Project Image Placeholder */}
       <Section>
         <FadeInOnScroll>
-          <div className="aspect-video bg-grey-100 rounded-xl" />
+          <div className="relative aspect-video w-full rounded-xl overflow-hidden bg-charcoal">
+            <Image 
+              src={study.image} 
+              alt={study.name} 
+              fill 
+              className="object-cover" 
+            />
+          </div>
         </FadeInOnScroll>
       </Section>
 

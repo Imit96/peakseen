@@ -1,4 +1,5 @@
 import Link from 'next/link';
+import Image from 'next/image';
 import { cn } from '@/lib/utils';
 import { buttonVariants } from '@/components/ui/button-variants';
 import { Section } from '@/components/layout/section';
@@ -12,18 +13,21 @@ const CASE_STUDIES = [
     name: 'Fintech Brand Identity',
     badges: ['Branding', 'Strategy'],
     outcome: 'A complete rebrand that increased user trust by 40%',
+    image: '/images/work/fintech-brand-identity.png'
   },
   {
     slug: 'ecommerce-brand-identity',
     name: 'E-commerce Brand Identity',
     badges: ['Branding', 'Web Design'],
     outcome: 'A premium brand experience that doubled mobile conversions',
+    image: '/images/work/ecommerce-brand-identity.png'
   },
   {
     slug: 'saas-product-brand',
     name: 'SaaS Product Brand',
     badges: ['Branding', 'Product Design'],
     outcome: 'A unified brand and design system for a growing SaaS platform',
+    image: '/images/work/saas-product-brand.png'
   },
 ];
 
@@ -41,7 +45,14 @@ export function WorkGrid() {
         {CASE_STUDIES.map((study, index) => (
           <FadeInOnScroll key={study.slug} delay={index * 0.1}>
             <Card variant="default">
-              <div className="aspect-video bg-grey-100" />
+              <div className="relative aspect-video w-full rounded-t-lg overflow-hidden bg-charcoal">
+                <Image 
+                  src={study.image} 
+                  alt={study.name} 
+                  fill 
+                  className="object-cover transition-transform duration-500 hover:scale-105" 
+                />
+              </div>
               <div className="p-6">
                 <div className="flex flex-wrap gap-2 mb-3">
                   {study.badges.map((badge) => (

@@ -2,6 +2,7 @@
 
 import { useState } from 'react';
 import Link from 'next/link';
+import Image from 'next/image';
 import { Section } from '@/components/layout/section';
 import { Card } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
@@ -15,6 +16,7 @@ interface BlogPost {
   category: string;
   readTime: string;
   date?: string;
+  image: string;
 }
 
 interface BlogGridProps {
@@ -58,7 +60,14 @@ export function BlogGrid({ posts, className }: BlogGridProps) {
           <FadeInOnScroll key={post.slug} delay={index * 0.1}>
             <Link href={`/blog/${post.slug}`} className="group block h-full">
               <Card className="h-full flex flex-col">
-                <div className="aspect-video bg-grey-100 w-full" />
+                <div className="relative aspect-video w-full rounded-t-lg overflow-hidden bg-charcoal">
+                  <Image 
+                    src={post.image} 
+                    alt={post.title} 
+                    fill 
+                    className="object-cover transition-transform duration-500 hover:scale-105" 
+                  />
+                </div>
                 <div className="p-6 flex flex-col flex-1">
                   <Badge className="self-start mb-3">{post.category}</Badge>
                   <h3 className="font-display text-lg font-bold text-charcoal tracking-tight group-hover:text-accent transition-colors duration-150">

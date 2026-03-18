@@ -17,6 +17,7 @@ interface BlogPost {
   category: string;
   readTime: string;
   date?: string;
+  image: string;
 }
 
 const FALLBACK_POSTS: BlogPost[] = [
@@ -27,6 +28,7 @@ const FALLBACK_POSTS: BlogPost[] = [
       'Your brand identity is more than a logo - it is the foundation that shapes how customers perceive and connect with your business.',
     category: 'Branding',
     readTime: '5 min read',
+    image: '/images/blog/brand-identity-startup.png',
   },
   {
     slug: 'what-is-a-brand-design-system-and-why-you-need-one',
@@ -35,6 +37,7 @@ const FALLBACK_POSTS: BlogPost[] = [
       'A design system keeps your brand consistent across every touchpoint, from your website to your social media to your pitch deck.',
     category: 'Design',
     readTime: '7 min read',
+    image: '/images/blog/what-is-a-brand-design-system-and-why-you-need-one.png',
   },
   {
     slug: '10-logo-design-mistakes-nigerian-startups-make',
@@ -43,6 +46,7 @@ const FALLBACK_POSTS: BlogPost[] = [
       'From overcomplicating the mark to ignoring scalability, these are the most common logo missteps we see in the startup ecosystem.',
     category: 'Branding',
     readTime: '6 min read',
+    image: '/images/blog/10-logo-design-mistakes-nigerian-startups-make.png',
   },
   {
     slug: 'how-to-write-a-brand-voice-guide',
@@ -51,6 +55,7 @@ const FALLBACK_POSTS: BlogPost[] = [
       'A brand voice guide ensures everyone on your team communicates with the same tone, personality, and clarity.',
     category: 'Strategy',
     readTime: '8 min read',
+    image: '/images/blog/how-to-write-a-brand-voice-guide.png',
   },
   {
     slug: 'website-vs-landing-page-what-does-your-business-actually-need',
@@ -59,6 +64,7 @@ const FALLBACK_POSTS: BlogPost[] = [
       'Not every business needs a full website from day one. Here is how to decide what makes sense for your stage and goals.',
     category: 'Strategy',
     readTime: '5 min read',
+    image: '/images/blog/website-vs-landing-page-what-does-your-business-actually-need.png',
   },
   {
     slug: 'how-to-create-a-social-media-aesthetic-for-your-business',
@@ -67,6 +73,7 @@ const FALLBACK_POSTS: BlogPost[] = [
       'A cohesive social media aesthetic builds recognition and trust before a customer ever visits your website.',
     category: 'Design',
     readTime: '6 min read',
+    image: '/images/blog/how-to-create-a-social-media-aesthetic-for-your-business.png',
   },
 ];
 
@@ -81,6 +88,7 @@ function getAllPosts(): BlogPost[] {
     category: p.category,
     readTime: p.readTime,
     date: p.date,
+    image: p.coverImage || `/images/blog/${p.slug}.png`,
   }));
 
   for (const fallback of FALLBACK_POSTS) {

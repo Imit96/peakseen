@@ -1,4 +1,5 @@
 import Link from 'next/link';
+import Image from 'next/image';
 import { Section } from '@/components/layout/section';
 import { Card } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
@@ -13,6 +14,7 @@ const POSTS = [
     excerpt:
       'Before your product, before your pitch — your brand tells investors whether you are serious.',
     readTime: '5 min read',
+    image: '/images/blog/brand-identity-startup.png',
   },
   {
     slug: 'color-psychology-branding',
@@ -21,6 +23,7 @@ const POSTS = [
     excerpt:
       'How to choose colours that reflect your values and connect with your audience on a subconscious level.',
     readTime: '4 min read',
+    image: '/images/blog/how-to-create-a-social-media-aesthetic-for-your-business.png',
   },
   {
     slug: 'mvp-launch-checklist',
@@ -29,6 +32,7 @@ const POSTS = [
     excerpt:
       'Skip the 50-step guides. Here is what matters when you are launching your first product.',
     readTime: '6 min read',
+    image: '/images/blog/what-is-a-brand-design-system-and-why-you-need-one.png',
   },
 ] as const;
 
@@ -47,7 +51,14 @@ export function BlogPreview() {
       <StaggerChildren className="grid grid-cols-1 md:grid-cols-3 gap-6 lg:gap-8 mt-12">
         {POSTS.map((post) => (
           <Card key={post.slug}>
-            <div className="bg-grey-200 aspect-[3/2] rounded-t-lg" />
+            <div className="relative aspect-[3/2] w-full rounded-t-lg overflow-hidden bg-charcoal">
+              <Image 
+                src={post.image} 
+                alt={post.title} 
+                fill 
+                className="object-cover transition-transform duration-500 hover:scale-105" 
+              />
+            </div>
             <div className="p-6">
               <Badge variant="accent">{post.category}</Badge>
               <h3 className="font-display text-xl font-bold text-charcoal mt-3">
