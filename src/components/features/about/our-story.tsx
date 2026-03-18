@@ -52,25 +52,50 @@ export function OurStory() {
           </FadeInOnScroll>
         </div>
 
-        <FadeInOnScroll delay={0.3} direction="right">
-          <div className="rounded-lg border border-grey-100 bg-grey-50 p-8 lg:p-10">
-            <div className="mb-4">
-              <div className="h-16 w-16 rounded-full bg-grey-200 mb-4" />
-              <h3 className="font-display text-xl font-bold text-charcoal">
-                Adekunle Adeola
-              </h3>
-              <p className="text-grey-500 text-sm font-display">
-                Founder &amp; Creative Director
+        <div className="space-y-6">
+          <FadeInOnScroll delay={0.3} direction="right">
+            <div className="rounded-lg border border-grey-100 bg-grey-50 p-8 lg:p-10">
+              <div className="mb-4">
+                <div className="h-16 w-16 rounded-full bg-charcoal flex items-center justify-center text-ivory font-display font-bold text-xl mb-4">
+                  OO
+                </div>
+                <h3 className="font-display text-xl font-bold text-charcoal">
+                  OJO Oluwatimileyin
+                </h3>
+                <p className="text-grey-500 text-sm font-display">
+                  Founder &amp; Creative Director
+                </p>
+              </div>
+              <p className="text-grey-600 text-base leading-relaxed">
+                &ldquo;I started PeakSeen because I believe every business has a peak
+                — a version of itself that is clearer, bolder, and impossible to
+                ignore. My job is to help you find it, design it, and show it to
+                the world.&rdquo;
               </p>
             </div>
-            <p className="text-grey-600 text-base leading-relaxed">
-              &ldquo;I started PeakSeen because I believe every business has a peak
-              — a version of itself that is clearer, bolder, and impossible to
-              ignore. My job is to help you find it, design it, and show it to
-              the world.&rdquo;
-            </p>
-          </div>
-        </FadeInOnScroll>
+          </FadeInOnScroll>
+
+          <FadeInOnScroll delay={0.4} direction="right">
+            <div className="rounded-lg border border-grey-100 bg-grey-50 p-8 lg:p-10">
+              <div className="mb-4">
+                <div className="h-16 w-16 rounded-full bg-accent flex items-center justify-center text-ivory font-display font-bold text-xl mb-4">
+                  TT
+                </div>
+                <h3 className="font-display text-xl font-bold text-charcoal">
+                  Taylor Tomi
+                </h3>
+                <p className="text-grey-500 text-sm font-display">
+                  Co-founder &amp; Head of Strategy
+                </p>
+              </div>
+              <p className="text-grey-600 text-base leading-relaxed">
+                &ldquo;Great brands aren&apos;t just seen — they&apos;re felt. I focus on the
+                strategy behind every visual, ensuring our work connects with
+                real audiences and drives real results.&rdquo;
+              </p>
+            </div>
+          </FadeInOnScroll>
+        </div>
       </div>
     </Section>
   );
