@@ -1,4 +1,5 @@
 import Link from 'next/link';
+import Image from 'next/image';
 import { cn } from '@/lib/utils';
 import { buttonVariants } from '@/components/ui/button-variants';
 import { FadeInOnScroll } from '@/components/motion/fade-in-on-scroll';
@@ -8,10 +9,19 @@ export function Hero() {
   return (
     <section className="bg-charcoal min-h-[95vh] flex flex-col justify-center items-center py-24 lg:py-32 relative overflow-hidden text-center">
       
-      {/* Dynamic Background Noise/Glow could go here, but keeping it minimal black */}
-      <div className="absolute inset-0 bg-[radial-gradient(circle_at_top,_var(--tw-gradient-stops))] from-grey-900 via-charcoal to-charcoal opacity-50"></div>
+      {/* Dynamic Background Image */}
+      <div className="absolute inset-0 z-0">
+        <Image 
+          src="/images/home/hero-bg.jpg"
+          alt="PeakSeen Studio Environment"
+          fill
+          priority
+          className="object-cover opacity-60 mix-blend-luminosity"
+        />
+        <div className="absolute inset-0 bg-gradient-to-b from-charcoal/40 via-charcoal/60 to-charcoal"></div>
+      </div>
 
-      <div className="mx-auto max-w-5xl px-6 lg:px-8 w-full z-10 flex flex-col items-center">
+      <div className="relative mx-auto max-w-5xl px-6 lg:px-8 w-full z-10 flex flex-col items-center">
         
         <WordReveal
           text="Reach Your Peak. Be Seen."
